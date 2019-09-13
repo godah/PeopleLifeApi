@@ -18,7 +18,7 @@ import javassist.NotFoundException;
 @CrossOrigin
 @RestController
 public class UserImageController {
-	private static final String ROUTE = "userimages";
+	private static final String ROUTE = "userimage";
 
 	@Autowired
 	private UserImageRepository userImageRepository;
@@ -45,7 +45,7 @@ public class UserImageController {
 	@PutMapping(path = "/" + ROUTE + "/{id}")
 	public @ResponseBody UserImage update(@PathVariable Integer id, @RequestBody UserImage userImage) {
 		return userImageRepository.findById(id).map(ui -> {
-			ui.setImage(userImage.getImage());
+			ui.setImagem(userImage.getImagem());
 			return userImageRepository.save(ui);
 		}).orElseGet(() -> {
 			userImage.setId(id);

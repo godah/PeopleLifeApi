@@ -7,19 +7,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tbl_user_image")
-public class UserImage implements Serializable {
-	private static final long serialVersionUID = -3560981669779946964L;
+@Table(name = "tbl_attach")
+public class Attach implements Serializable {
+	private static final long serialVersionUID = -3349572882919603802L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 
-	@Column(name = "imagem", columnDefinition = "mediumtext")
-	private String imagem;
+	@Lob
+	@Column(name = "attach", columnDefinition = "longtext")
+	private String anexo;
 
 	public Integer getId() {
 		return id;
@@ -29,12 +31,12 @@ public class UserImage implements Serializable {
 		this.id = id;
 	}
 
-	public String getImagem() {
-		return imagem;
+	public String getAnexo() {
+		return anexo;
 	}
 
-	public void setImagem(String imagem) {
-		this.imagem = imagem;
+	public void setAnexo(String anexo) {
+		this.anexo = anexo;
 	}
 
 }

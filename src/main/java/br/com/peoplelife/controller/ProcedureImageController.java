@@ -11,51 +11,51 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.peoplelife.model.UserType;
-import br.com.peoplelife.repository.UserTypeRepository;
+import br.com.peoplelife.model.ProcedureImage;
+import br.com.peoplelife.repository.ProcedureImageRepository;
 import javassist.NotFoundException;
 
 @CrossOrigin
 @RestController
-public class UserTypeController {
-	private static final String ROUTE = "usertype";
+public class ProcedureImageController {
+	private static final String ROUTE = "procedureimage";
 
 	@Autowired
-	private UserTypeRepository userTypeRepository;
+	private ProcedureImageRepository procedureImageRepository;
 
 	@CrossOrigin
 	@GetMapping(path = "/" + ROUTE)
-	public @ResponseBody Iterable<UserType> list() {
-		return userTypeRepository.findAll();
+	public @ResponseBody Iterable<ProcedureImage> list() {
+		return procedureImageRepository.findAll();
 	}
 
 	@CrossOrigin
 	@GetMapping(path = "/" + ROUTE + "/{id}")
-	public @ResponseBody UserType find(@PathVariable Integer id) throws NotFoundException {
-		return userTypeRepository.findById(id).orElseThrow(() -> new NotFoundException("NotFound"));
+	public @ResponseBody ProcedureImage find(@PathVariable Integer id) throws NotFoundException {
+		return procedureImageRepository.findById(id).orElseThrow(() -> new NotFoundException("NotFound"));
 	}
 
 	@CrossOrigin
 	@PostMapping(path = "/" + ROUTE)
-	public @ResponseBody UserType add(@RequestBody UserType userType) {
-		return userTypeRepository.save(userType);
+	public @ResponseBody ProcedureImage add(@RequestBody ProcedureImage procedureImage) {
+		return procedureImageRepository.save(procedureImage);
 	}
 
 	@CrossOrigin
 	@PutMapping(path = "/" + ROUTE + "/{id}")
-	public @ResponseBody UserType update(@PathVariable Integer id, @RequestBody UserType userType) {
-		return userTypeRepository.findById(id).map(ut -> {
-			ut.setDescricao(userType.getDescricao());
-			return userTypeRepository.save(ut);
+	public @ResponseBody ProcedureImage update(@PathVariable Integer id, @RequestBody ProcedureImage procedureImage) {
+		return procedureImageRepository.findById(id).map(ui -> {
+			ui.setImagem(procedureImage.getImagem());
+			return procedureImageRepository.save(ui);
 		}).orElseGet(() -> {
-			userType.setId(id);
-			return userTypeRepository.save(userType);
+			procedureImage.setId(id);
+			return procedureImageRepository.save(procedureImage);
 		});
 	}
 
 	@CrossOrigin
 	@DeleteMapping(path = "/" + ROUTE + "/{id}")
 	public @ResponseBody void remove(@PathVariable Integer id) {
-		userTypeRepository.deleteById(id);
+		procedureImageRepository.deleteById(id);
 	}
 }

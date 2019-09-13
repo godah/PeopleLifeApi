@@ -11,51 +11,51 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.peoplelife.model.UserType;
-import br.com.peoplelife.repository.UserTypeRepository;
+import br.com.peoplelife.model.Attach;
+import br.com.peoplelife.repository.AttachRepository;
 import javassist.NotFoundException;
 
 @CrossOrigin
 @RestController
-public class UserTypeController {
-	private static final String ROUTE = "usertype";
+public class AttachController {
+	private static final String ROUTE = "attach";
 
 	@Autowired
-	private UserTypeRepository userTypeRepository;
+	private AttachRepository attachRepository;
 
 	@CrossOrigin
 	@GetMapping(path = "/" + ROUTE)
-	public @ResponseBody Iterable<UserType> list() {
-		return userTypeRepository.findAll();
+	public @ResponseBody Iterable<Attach> list() {
+		return attachRepository.findAll();
 	}
 
 	@CrossOrigin
 	@GetMapping(path = "/" + ROUTE + "/{id}")
-	public @ResponseBody UserType find(@PathVariable Integer id) throws NotFoundException {
-		return userTypeRepository.findById(id).orElseThrow(() -> new NotFoundException("NotFound"));
+	public @ResponseBody Attach find(@PathVariable Integer id) throws NotFoundException {
+		return attachRepository.findById(id).orElseThrow(() -> new NotFoundException("NotFound"));
 	}
 
 	@CrossOrigin
 	@PostMapping(path = "/" + ROUTE)
-	public @ResponseBody UserType add(@RequestBody UserType userType) {
-		return userTypeRepository.save(userType);
+	public @ResponseBody Attach add(@RequestBody Attach attach) {
+		return attachRepository.save(attach);
 	}
 
 	@CrossOrigin
 	@PutMapping(path = "/" + ROUTE + "/{id}")
-	public @ResponseBody UserType update(@PathVariable Integer id, @RequestBody UserType userType) {
-		return userTypeRepository.findById(id).map(ut -> {
-			ut.setDescricao(userType.getDescricao());
-			return userTypeRepository.save(ut);
+	public @ResponseBody Attach update(@PathVariable Integer id, @RequestBody Attach attach) {
+		return attachRepository.findById(id).map(ut -> {
+			ut.setAnexo(attach.getAnexo());
+			return attachRepository.save(ut);
 		}).orElseGet(() -> {
-			userType.setId(id);
-			return userTypeRepository.save(userType);
+			attach.setId(id);
+			return attachRepository.save(attach);
 		});
 	}
 
 	@CrossOrigin
 	@DeleteMapping(path = "/" + ROUTE + "/{id}")
 	public @ResponseBody void remove(@PathVariable Integer id) {
-		userTypeRepository.deleteById(id);
+		attachRepository.deleteById(id);
 	}
 }

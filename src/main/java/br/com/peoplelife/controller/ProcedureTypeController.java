@@ -11,51 +11,51 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.peoplelife.model.UserType;
-import br.com.peoplelife.repository.UserTypeRepository;
+import br.com.peoplelife.model.ProcedureType;
+import br.com.peoplelife.repository.ProcedureTypeRepository;
 import javassist.NotFoundException;
 
 @CrossOrigin
 @RestController
-public class UserTypeController {
-	private static final String ROUTE = "usertype";
+public class ProcedureTypeController {
+	private static final String ROUTE = "proceduretypes";
 
 	@Autowired
-	private UserTypeRepository userTypeRepository;
+	private ProcedureTypeRepository procedureTypeRepository;
 
 	@CrossOrigin
 	@GetMapping(path = "/" + ROUTE)
-	public @ResponseBody Iterable<UserType> list() {
-		return userTypeRepository.findAll();
+	public @ResponseBody Iterable<ProcedureType> list() {
+		return procedureTypeRepository.findAll();
 	}
 
 	@CrossOrigin
 	@GetMapping(path = "/" + ROUTE + "/{id}")
-	public @ResponseBody UserType find(@PathVariable Integer id) throws NotFoundException {
-		return userTypeRepository.findById(id).orElseThrow(() -> new NotFoundException("NotFound"));
+	public @ResponseBody ProcedureType find(@PathVariable Integer id) throws NotFoundException {
+		return procedureTypeRepository.findById(id).orElseThrow(() -> new NotFoundException("NotFound"));
 	}
 
 	@CrossOrigin
 	@PostMapping(path = "/" + ROUTE)
-	public @ResponseBody UserType add(@RequestBody UserType userType) {
-		return userTypeRepository.save(userType);
+	public @ResponseBody ProcedureType add(@RequestBody ProcedureType procedureType) {
+		return procedureTypeRepository.save(procedureType);
 	}
 
 	@CrossOrigin
 	@PutMapping(path = "/" + ROUTE + "/{id}")
-	public @ResponseBody UserType update(@PathVariable Integer id, @RequestBody UserType userType) {
-		return userTypeRepository.findById(id).map(ut -> {
-			ut.setDescricao(userType.getDescricao());
-			return userTypeRepository.save(ut);
+	public @ResponseBody ProcedureType update(@PathVariable Integer id, @RequestBody ProcedureType procedureType) {
+		return procedureTypeRepository.findById(id).map(p -> {
+			p.setDescricao(procedureType.getDescricao());
+			return procedureTypeRepository.save(p);
 		}).orElseGet(() -> {
-			userType.setId(id);
-			return userTypeRepository.save(userType);
+			procedureType.setId(id);
+			return procedureTypeRepository.save(procedureType);
 		});
 	}
 
 	@CrossOrigin
 	@DeleteMapping(path = "/" + ROUTE + "/{id}")
 	public @ResponseBody void remove(@PathVariable Integer id) {
-		userTypeRepository.deleteById(id);
+		procedureTypeRepository.deleteById(id);
 	}
 }

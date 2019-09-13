@@ -27,7 +27,7 @@ import javassist.NotFoundException;
 public class UserController {
 	private final Log log = LogFactory.getLog(UserController.class);
 	private static final String MD5 = "MD5";
-	private static final String ROUTE = "users";
+	private static final String ROUTE = "user";
 
 	@Autowired
 	private UserRepository userRepository;
@@ -50,8 +50,8 @@ public class UserController {
 		MessageDigest md;
 		try {
 			md = MessageDigest.getInstance(MD5);
-			BigInteger hash = new BigInteger(1, md.digest(user.getPwd().getBytes()));
-			user.setPwd(String.format("%32x", hash));
+			BigInteger hash = new BigInteger(1, md.digest(user.getSenha().getBytes()));
+			user.setSenha(String.format("%32x", hash));
 			return userRepository.save(user);
 		} catch (NoSuchAlgorithmException e) {
 			log.error(e.getMessage(), e);
@@ -65,19 +65,20 @@ public class UserController {
 		MessageDigest md;
 		try {
 			md = MessageDigest.getInstance(MD5);
-			BigInteger hash = new BigInteger(1, md.digest(user.getPwd().getBytes()));
-			user.setPwd(String.format("%32x", hash));
+			BigInteger hash = new BigInteger(1, md.digest(user.getSenha().getBytes()));
+			user.setSenha(String.format("%32x", hash));
 			return userRepository.findById(id).map(usr -> {
-				usr.setUserdescription(user.getUserdescription());
 				usr.setEmail(user.getEmail());
-				usr.setImage(user.getImage());
-				usr.setName(user.getName());
-				usr.setPwd(user.getPwd());
-				usr.setFirstname(user.getFirstname());
-				usr.setLastname(user.getLastname());
-				usr.setCity(user.getCity());
-				usr.setCountry(user.getCountry());
-				usr.setUserType(user.getUserType());
+				usr.setImagem(user.getImagem());
+				usr.setNome(user.getNome());
+				usr.setSenha(user.getSenha());
+				usr.setTipo(user.getTipo());
+				usr.setAltura(user.getAltura());
+				usr.setCpf(user.getCpf());
+				usr.setMedico(user.getMedico());
+				usr.setNascimento(user.getNascimento());
+				usr.setPeso(user.getPeso());
+				usr.setSexo(user.getSexo());
 				return userRepository.save(usr);
 			}).orElseGet(() -> {
 				user.setId(id);
@@ -101,11 +102,11 @@ public class UserController {
 		MessageDigest md;
 		try {
 			md = MessageDigest.getInstance(MD5);
-			BigInteger hash = new BigInteger(1, md.digest(user.getPwd().getBytes()));
-			user.setPwd(String.format("%32x", hash));
+			BigInteger hash = new BigInteger(1, md.digest(user.getSenha().getBytes()));
+			user.setSenha(String.format("%32x", hash));
 			List<User> users = (List<User>) userRepository.findAll();
 			User response = users.stream()
-					.filter(p -> p.getName().equals(user.getName()) && p.getPwd().equals(user.getPwd()))
+					.filter(p -> p.getNome().equals(user.getNome()) && p.getSenha().equals(user.getSenha()))
 					.findFirst()
 					.orElse(null);
 			return response;

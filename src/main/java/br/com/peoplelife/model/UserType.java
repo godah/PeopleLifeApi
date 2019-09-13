@@ -1,5 +1,7 @@
 package br.com.peoplelife.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,13 +9,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "type_user")
-public class UserType {
+@Table(name = "tbl_type_user")
+public class UserType implements Serializable {
+	private static final long serialVersionUID = -4810588333184623657L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 
-	private String typeuserdescription;
+	private String descricao;
 
 	public Integer getId() {
 		return id;
@@ -23,12 +27,12 @@ public class UserType {
 		this.id = id;
 	}
 
-	public String getTypeuserdescription() {
-		return typeuserdescription;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setTypeuserdescription(String typeuserdescription) {
-		this.typeuserdescription = typeuserdescription;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 }

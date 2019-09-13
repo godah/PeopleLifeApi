@@ -10,9 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tbl_user_image")
-public class UserImage implements Serializable {
-	private static final long serialVersionUID = -3560981669779946964L;
+@Table(name = "tbl_procedure_image")
+public class ProcedureImage implements Serializable {
+	private static final long serialVersionUID = -3349572882919603805L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)

@@ -1,47 +1,58 @@
 package br.com.peoplelife.model;
 
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.springframework.lang.Nullable;
-
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "tbl_user")
+public class User implements Serializable {
+	private static final long serialVersionUID = 3527615827091191953L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 
-	private String name;
+	private String nome;
+
+	private String cpf;
 
 	private String email;
 
-	private String pwd;
-	
-	private String firstname;
-	
-	private String lastname;
-	
-	private String city;
-	
-	private String country;
+	private String senha;
 
-	private String userdescription;
+	private Date nascimento;
 
-	@Nullable
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "type_user_id")
-	private UserType userType;
+	private Double peso;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	private Double altura;
+
+	private Character sexo;
+
+	private Boolean medico;
+
+	@ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+        name = "user_tipo", 
+        joinColumns = { @JoinColumn(name = "user_id") }, 
+        inverseJoinColumns = { @JoinColumn(name = "tipo_id") })
+        private Set<UserType> tipos;
+
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_image_id")
-	private UserImage image;
+	private UserImage imagem;
 
 	public Integer getId() {
 		return id;
@@ -51,12 +62,20 @@ public class User {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public String getEmail() {
@@ -67,69 +86,68 @@ public class User {
 		this.email = email;
 	}
 
-	public String getPwd() {
-		return pwd;
+	public String getSenha() {
+		return senha;
 	}
 
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
-	public String getUserdescription() {
-		return userdescription;
+	public Date getNascimento() {
+		return nascimento;
 	}
 
-	public void setUserdescription(String userdescription) {
-		this.userdescription = userdescription;
+	public void setNascimento(Date nascimento) {
+		this.nascimento = nascimento;
 	}
 
-	public UserType getUserType() {
-		return userType;
+	public Double getPeso() {
+		return peso;
 	}
 
-	public void setUserType(UserType userType) {
-		this.userType = userType;
+	public void setPeso(Double peso) {
+		this.peso = peso;
 	}
 
-	public UserImage getImage() {
-		return image;
+	public Double getAltura() {
+		return altura;
 	}
 
-	public void setImage(UserImage image) {
-		this.image = image;
+	public void setAltura(Double altura) {
+		this.altura = altura;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public Character getSexo() {
+		return sexo;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setSexo(Character sexo) {
+		this.sexo = sexo;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public Boolean getMedico() {
+		return medico;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setMedico(Boolean medico) {
+		this.medico = medico;
 	}
 
-	public String getCity() {
-		return city;
+	public Set<UserType> getTipo() {
+		return tipos;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setTipo(Set<UserType> tipos) {
+		this.tipos = tipos;
 	}
 
-	public String getCountry() {
-		return country;
+	public UserImage getImagem() {
+		return imagem;
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
+	public void setImagem(UserImage imagem) {
+		this.imagem = imagem;
 	}
-	
 
 }
