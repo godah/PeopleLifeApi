@@ -79,6 +79,18 @@
 			<version>3.23.1-GA</version>
 		</dependency>
 
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
@@ -88,7 +100,8 @@
 				<!-- Configuração para depuração do projeto. -->
 				<configuration>
 					<jvmArguments>
-						-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8080
+						-Xdebug
+						-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8080
 					</jvmArguments>
 				</configuration>
 			</plugin>
