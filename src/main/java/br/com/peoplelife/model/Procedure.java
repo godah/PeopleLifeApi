@@ -39,7 +39,7 @@ public class Procedure implements Serializable {
 	@JoinTable(name = "procedure_attachs", 
 			joinColumns = {@JoinColumn(name = "procedure_id") }, 
 			inverseJoinColumns = {@JoinColumn(name = "attach_id") })
-	private Set<Attach> attachs;
+	private Set<MedicalCareAttachments> attachs;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
@@ -97,11 +97,11 @@ public class Procedure implements Serializable {
 		this.observacao = observacao;
 	}
 
-	public Set<Attach> getAttachs() {
+	public Set<MedicalCareAttachments> getAttachs() {
 		return attachs;
 	}
 
-	public void setAttachs(Set<Attach> attachs) {
+	public void setAttachs(Set<MedicalCareAttachments> attachs) {
 		this.attachs = attachs;
 	}
 

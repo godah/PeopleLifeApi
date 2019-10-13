@@ -3,6 +3,7 @@ package br.com.peoplelife.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,21 +11,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tbl_procedure_type")
-public class ProcedureType implements Serializable {
-	private static final long serialVersionUID = -4810588323184623657L;
+@Table(name = "tbl_medical_care_attachments")
+public class MedicalCareAttachments implements Serializable {
+	private static final long serialVersionUID = -3349572882919603802L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer Id;
 
-	private String Name;
+	private Integer MedicalCareId;
 
-	private String Description;
+	private String FileName;
 
-	private String TissCode;
-
-	private String TussCode;
+	@Column(name = "filebytearray", columnDefinition = "mediumtext")
+	private String FileByteArray;
 
 	private Date CreatedOn;
 
@@ -34,7 +34,7 @@ public class ProcedureType implements Serializable {
 
 	private Integer UserId;
 
-	public ProcedureType() {
+	public MedicalCareAttachments() {
 		super();
 	}
 
@@ -46,36 +46,28 @@ public class ProcedureType implements Serializable {
 		Id = id;
 	}
 
-	public String getName() {
-		return Name;
+	public Integer getMedicalCareId() {
+		return MedicalCareId;
 	}
 
-	public void setName(String name) {
-		Name = name;
+	public void setMedicalCareId(Integer medicalCareId) {
+		MedicalCareId = medicalCareId;
 	}
 
-	public String getDescription() {
-		return Description;
+	public String getFileName() {
+		return FileName;
 	}
 
-	public void setDescription(String description) {
-		Description = description;
+	public void setFileName(String fileName) {
+		FileName = fileName;
 	}
 
-	public String getTissCode() {
-		return TissCode;
+	public String getFileByteArray() {
+		return FileByteArray;
 	}
 
-	public void setTissCode(String tissCode) {
-		TissCode = tissCode;
-	}
-
-	public String getTussCode() {
-		return TussCode;
-	}
-
-	public void setTussCode(String tussCode) {
-		TussCode = tussCode;
+	public void setFileByteArray(String fileByteArray) {
+		FileByteArray = fileByteArray;
 	}
 
 	public Date getCreatedOn() {
@@ -115,11 +107,10 @@ public class ProcedureType implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((CreatedOn == null) ? 0 : CreatedOn.hashCode());
-		result = prime * result + ((Description == null) ? 0 : Description.hashCode());
+		result = prime * result + ((FileByteArray == null) ? 0 : FileByteArray.hashCode());
+		result = prime * result + ((FileName == null) ? 0 : FileName.hashCode());
 		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
-		result = prime * result + ((Name == null) ? 0 : Name.hashCode());
-		result = prime * result + ((TissCode == null) ? 0 : TissCode.hashCode());
-		result = prime * result + ((TussCode == null) ? 0 : TussCode.hashCode());
+		result = prime * result + ((MedicalCareId == null) ? 0 : MedicalCareId.hashCode());
 		result = prime * result + ((UpdateOn == null) ? 0 : UpdateOn.hashCode());
 		result = prime * result + ((UploadedOn == null) ? 0 : UploadedOn.hashCode());
 		result = prime * result + ((UserId == null) ? 0 : UserId.hashCode());
@@ -134,36 +125,31 @@ public class ProcedureType implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ProcedureType other = (ProcedureType) obj;
+		MedicalCareAttachments other = (MedicalCareAttachments) obj;
 		if (CreatedOn == null) {
 			if (other.CreatedOn != null)
 				return false;
 		} else if (!CreatedOn.equals(other.CreatedOn))
 			return false;
-		if (Description == null) {
-			if (other.Description != null)
+		if (FileByteArray == null) {
+			if (other.FileByteArray != null)
 				return false;
-		} else if (!Description.equals(other.Description))
+		} else if (!FileByteArray.equals(other.FileByteArray))
+			return false;
+		if (FileName == null) {
+			if (other.FileName != null)
+				return false;
+		} else if (!FileName.equals(other.FileName))
 			return false;
 		if (Id == null) {
 			if (other.Id != null)
 				return false;
 		} else if (!Id.equals(other.Id))
 			return false;
-		if (Name == null) {
-			if (other.Name != null)
+		if (MedicalCareId == null) {
+			if (other.MedicalCareId != null)
 				return false;
-		} else if (!Name.equals(other.Name))
-			return false;
-		if (TissCode == null) {
-			if (other.TissCode != null)
-				return false;
-		} else if (!TissCode.equals(other.TissCode))
-			return false;
-		if (TussCode == null) {
-			if (other.TussCode != null)
-				return false;
-		} else if (!TussCode.equals(other.TussCode))
+		} else if (!MedicalCareId.equals(other.MedicalCareId))
 			return false;
 		if (UpdateOn == null) {
 			if (other.UpdateOn != null)

@@ -11,51 +11,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.peoplelife.model.UserImage;
-import br.com.peoplelife.repository.UserImageRepository;
+import br.com.peoplelife.model.Patient;
+import br.com.peoplelife.repository.PatientRepository;
 import javassist.NotFoundException;
 
 @CrossOrigin
 @RestController
-public class UserImageController {
-	private static final String ROUTE = "userimage";
+public class PatientController {
+	private static final String ROUTE = "patient";
 
 	@Autowired
-	private UserImageRepository userImageRepository;
+	private PatientRepository patientRepository;
 
 	@CrossOrigin
 	@GetMapping(path = "/" + ROUTE)
-	public @ResponseBody Iterable<UserImage> list() {
-		return userImageRepository.findAll();
+	public @ResponseBody Iterable<Patient> list() {
+		return patientRepository.findAll();
 	}
 
 	@CrossOrigin
 	@GetMapping(path = "/" + ROUTE + "/{id}")
-	public @ResponseBody UserImage find(@PathVariable Integer id) throws NotFoundException {
-		return userImageRepository.findById(id).orElseThrow(() -> new NotFoundException("NotFound"));
+	public @ResponseBody Patient find(@PathVariable Integer id) throws NotFoundException {
+		return patientRepository.findById(id).orElseThrow(() -> new NotFoundException("NotFound"));
 	}
 
 	@CrossOrigin
 	@PostMapping(path = "/" + ROUTE)
-	public @ResponseBody UserImage add(@RequestBody UserImage userImage) {
-		return userImageRepository.save(userImage);
+	public @ResponseBody Patient add(@RequestBody Patient patient) {
+		return patientRepository.save(patient);
 	}
 
 	@CrossOrigin
 	@PutMapping(path = "/" + ROUTE + "/{id}")
-	public @ResponseBody UserImage update(@PathVariable Integer id, @RequestBody UserImage userImage) {
-		return userImageRepository.findById(id).map(ui -> {
-			ui.setImagem(userImage.getImagem());
-			return userImageRepository.save(ui);
-		}).orElseGet(() -> {
-			userImage.setId(id);
-			return userImageRepository.save(userImage);
-		});
+	public @ResponseBody Patient update(@PathVariable Integer id, @RequestBody Patient patient) {
+		return patientRepository.save(patient);
 	}
 
 	@CrossOrigin
 	@DeleteMapping(path = "/" + ROUTE + "/{id}")
 	public @ResponseBody void remove(@PathVariable Integer id) {
-		userImageRepository.deleteById(id);
+		patientRepository.deleteById(id);
 	}
 }

@@ -50,8 +50,8 @@ public class UserController {
 		MessageDigest md;
 		try {
 			md = MessageDigest.getInstance(MD5);
-			BigInteger hash = new BigInteger(1, md.digest(user.getSenha().getBytes()));
-			user.setSenha(String.format("%32x", hash));
+			BigInteger hash = new BigInteger(1, md.digest(user.getPassword().getBytes()));
+			user.setPassword(String.format("%32x", hash));
 			return userRepository.save(user);
 		} catch (NoSuchAlgorithmException e) {
 			log.error(e.getMessage(), e);
@@ -65,25 +65,9 @@ public class UserController {
 		MessageDigest md;
 		try {
 			md = MessageDigest.getInstance(MD5);
-			BigInteger hash = new BigInteger(1, md.digest(user.getSenha().getBytes()));
-			user.setSenha(String.format("%32x", hash));
-			return userRepository.findById(id).map(usr -> {
-				usr.setEmail(user.getEmail());
-				usr.setImagem(user.getImagem());
-				usr.setNome(user.getNome());
-				usr.setSenha(user.getSenha());
-				usr.setTipo(user.getTipo());
-				usr.setAltura(user.getAltura());
-				usr.setCpf(user.getCpf());
-				usr.setMedico(user.getMedico());
-				usr.setNascimento(user.getNascimento());
-				usr.setPeso(user.getPeso());
-				usr.setSexo(user.getSexo());
-				return userRepository.save(usr);
-			}).orElseGet(() -> {
-				user.setId(id);
-				return userRepository.save(user);
-			});
+			BigInteger hash = new BigInteger(1, md.digest(user.getPassword().getBytes()));
+			user.setPassword(String.format("%32x", hash));
+			return userRepository.save(user);
 		} catch (NoSuchAlgorithmException e) {
 			log.error(e.getMessage(), e);
 		}
@@ -102,11 +86,11 @@ public class UserController {
 		MessageDigest md;
 		try {
 			md = MessageDigest.getInstance(MD5);
-			BigInteger hash = new BigInteger(1, md.digest(user.getSenha().getBytes()));
-			user.setSenha(String.format("%32x", hash));
+			BigInteger hash = new BigInteger(1, md.digest(user.getPassword().getBytes()));
+			user.setPassword(String.format("%32x", hash));
 			List<User> users = (List<User>) userRepository.findAll();
 			User response = users.stream()
-					.filter(p -> p.getNome().equals(user.getNome()) && p.getSenha().equals(user.getSenha()))
+					.filter(p -> p.getName().equals(user.getName()) && p.getPassword().equals(user.getPassword()))
 					.findFirst()
 					.orElse(null);
 			return response;

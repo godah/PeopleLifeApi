@@ -11,51 +11,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.peoplelife.model.Attach;
-import br.com.peoplelife.repository.AttachRepository;
+import br.com.peoplelife.model.MedicalCareAttachments;
+import br.com.peoplelife.repository.MedicalCareAttachmentsRepository;
 import javassist.NotFoundException;
 
 @CrossOrigin
 @RestController
-public class AttachController {
-	private static final String ROUTE = "attach";
+public class MedicalCareAttachmentsController {
+	private static final String ROUTE = "MedicalCareAttachments";
 
 	@Autowired
-	private AttachRepository attachRepository;
+	private MedicalCareAttachmentsRepository medicalCareAttachmentsRepository;
 
 	@CrossOrigin
 	@GetMapping(path = "/" + ROUTE)
-	public @ResponseBody Iterable<Attach> list() {
-		return attachRepository.findAll();
+	public @ResponseBody Iterable<MedicalCareAttachments> list() {
+		return medicalCareAttachmentsRepository.findAll();
 	}
 
 	@CrossOrigin
 	@GetMapping(path = "/" + ROUTE + "/{id}")
-	public @ResponseBody Attach find(@PathVariable Integer id) throws NotFoundException {
-		return attachRepository.findById(id).orElseThrow(() -> new NotFoundException("NotFound"));
+	public @ResponseBody MedicalCareAttachments find(@PathVariable Integer id) throws NotFoundException {
+		return medicalCareAttachmentsRepository.findById(id).orElseThrow(() -> new NotFoundException("NotFound"));
 	}
 
 	@CrossOrigin
 	@PostMapping(path = "/" + ROUTE)
-	public @ResponseBody Attach add(@RequestBody Attach attach) {
-		return attachRepository.save(attach);
+	public @ResponseBody MedicalCareAttachments add(@RequestBody MedicalCareAttachments attach) {
+		return medicalCareAttachmentsRepository.save(attach);
 	}
 
 	@CrossOrigin
 	@PutMapping(path = "/" + ROUTE + "/{id}")
-	public @ResponseBody Attach update(@PathVariable Integer id, @RequestBody Attach attach) {
-		return attachRepository.findById(id).map(ut -> {
-			ut.setAnexo(attach.getAnexo());
-			return attachRepository.save(ut);
-		}).orElseGet(() -> {
-			attach.setId(id);
-			return attachRepository.save(attach);
-		});
+	public @ResponseBody MedicalCareAttachments update(@PathVariable Integer id, @RequestBody MedicalCareAttachments attach) {
+		return medicalCareAttachmentsRepository.save(attach);
 	}
 
 	@CrossOrigin
 	@DeleteMapping(path = "/" + ROUTE + "/{id}")
 	public @ResponseBody void remove(@PathVariable Integer id) {
-		attachRepository.deleteById(id);
+		medicalCareAttachmentsRepository.deleteById(id);
 	}
 }

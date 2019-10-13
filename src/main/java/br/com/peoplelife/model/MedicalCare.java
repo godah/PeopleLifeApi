@@ -10,21 +10,29 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tbl_procedure_type")
-public class ProcedureType implements Serializable {
-	private static final long serialVersionUID = -4810588323184623657L;
+@Table(name = "tbl_medical_care")
+public class MedicalCare implements Serializable {
+	private static final long serialVersionUID = -4810588333184623657L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer Id;
 
-	private String Name;
+	private Integer PatientId;
+
+	private String Title;
 
 	private String Description;
 
-	private String TissCode;
+	private Integer ProcedureTypeId;
 
-	private String TussCode;
+	private String Place;
+
+	private Date DateTime;
+
+	private String Observation;
+
+	private String Prescription;
 
 	private Date CreatedOn;
 
@@ -34,7 +42,7 @@ public class ProcedureType implements Serializable {
 
 	private Integer UserId;
 
-	public ProcedureType() {
+	public MedicalCare() {
 		super();
 	}
 
@@ -46,12 +54,20 @@ public class ProcedureType implements Serializable {
 		Id = id;
 	}
 
-	public String getName() {
-		return Name;
+	public Integer getPatientId() {
+		return PatientId;
 	}
 
-	public void setName(String name) {
-		Name = name;
+	public void setPatientId(Integer patientId) {
+		PatientId = patientId;
+	}
+
+	public String getTitle() {
+		return Title;
+	}
+
+	public void setTitle(String title) {
+		Title = title;
 	}
 
 	public String getDescription() {
@@ -62,20 +78,44 @@ public class ProcedureType implements Serializable {
 		Description = description;
 	}
 
-	public String getTissCode() {
-		return TissCode;
+	public Integer getProcedureTypeId() {
+		return ProcedureTypeId;
 	}
 
-	public void setTissCode(String tissCode) {
-		TissCode = tissCode;
+	public void setProcedureTypeId(Integer procedureTypeId) {
+		ProcedureTypeId = procedureTypeId;
 	}
 
-	public String getTussCode() {
-		return TussCode;
+	public String getPlace() {
+		return Place;
 	}
 
-	public void setTussCode(String tussCode) {
-		TussCode = tussCode;
+	public void setPlace(String place) {
+		Place = place;
+	}
+
+	public Date getDateTime() {
+		return DateTime;
+	}
+
+	public void setDateTime(Date dateTime) {
+		DateTime = dateTime;
+	}
+
+	public String getObservation() {
+		return Observation;
+	}
+
+	public void setObservation(String observation) {
+		Observation = observation;
+	}
+
+	public String getPrescription() {
+		return Prescription;
+	}
+
+	public void setPrescription(String prescription) {
+		Prescription = prescription;
 	}
 
 	public Date getCreatedOn() {
@@ -115,11 +155,15 @@ public class ProcedureType implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((CreatedOn == null) ? 0 : CreatedOn.hashCode());
+		result = prime * result + ((DateTime == null) ? 0 : DateTime.hashCode());
 		result = prime * result + ((Description == null) ? 0 : Description.hashCode());
 		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
-		result = prime * result + ((Name == null) ? 0 : Name.hashCode());
-		result = prime * result + ((TissCode == null) ? 0 : TissCode.hashCode());
-		result = prime * result + ((TussCode == null) ? 0 : TussCode.hashCode());
+		result = prime * result + ((Observation == null) ? 0 : Observation.hashCode());
+		result = prime * result + ((PatientId == null) ? 0 : PatientId.hashCode());
+		result = prime * result + ((Place == null) ? 0 : Place.hashCode());
+		result = prime * result + ((Prescription == null) ? 0 : Prescription.hashCode());
+		result = prime * result + ((ProcedureTypeId == null) ? 0 : ProcedureTypeId.hashCode());
+		result = prime * result + ((Title == null) ? 0 : Title.hashCode());
 		result = prime * result + ((UpdateOn == null) ? 0 : UpdateOn.hashCode());
 		result = prime * result + ((UploadedOn == null) ? 0 : UploadedOn.hashCode());
 		result = prime * result + ((UserId == null) ? 0 : UserId.hashCode());
@@ -134,11 +178,16 @@ public class ProcedureType implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ProcedureType other = (ProcedureType) obj;
+		MedicalCare other = (MedicalCare) obj;
 		if (CreatedOn == null) {
 			if (other.CreatedOn != null)
 				return false;
 		} else if (!CreatedOn.equals(other.CreatedOn))
+			return false;
+		if (DateTime == null) {
+			if (other.DateTime != null)
+				return false;
+		} else if (!DateTime.equals(other.DateTime))
 			return false;
 		if (Description == null) {
 			if (other.Description != null)
@@ -150,20 +199,35 @@ public class ProcedureType implements Serializable {
 				return false;
 		} else if (!Id.equals(other.Id))
 			return false;
-		if (Name == null) {
-			if (other.Name != null)
+		if (Observation == null) {
+			if (other.Observation != null)
 				return false;
-		} else if (!Name.equals(other.Name))
+		} else if (!Observation.equals(other.Observation))
 			return false;
-		if (TissCode == null) {
-			if (other.TissCode != null)
+		if (PatientId == null) {
+			if (other.PatientId != null)
 				return false;
-		} else if (!TissCode.equals(other.TissCode))
+		} else if (!PatientId.equals(other.PatientId))
 			return false;
-		if (TussCode == null) {
-			if (other.TussCode != null)
+		if (Place == null) {
+			if (other.Place != null)
 				return false;
-		} else if (!TussCode.equals(other.TussCode))
+		} else if (!Place.equals(other.Place))
+			return false;
+		if (Prescription == null) {
+			if (other.Prescription != null)
+				return false;
+		} else if (!Prescription.equals(other.Prescription))
+			return false;
+		if (ProcedureTypeId == null) {
+			if (other.ProcedureTypeId != null)
+				return false;
+		} else if (!ProcedureTypeId.equals(other.ProcedureTypeId))
+			return false;
+		if (Title == null) {
+			if (other.Title != null)
+				return false;
+		} else if (!Title.equals(other.Title))
 			return false;
 		if (UpdateOn == null) {
 			if (other.UpdateOn != null)

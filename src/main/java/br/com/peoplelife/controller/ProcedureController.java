@@ -18,7 +18,7 @@ import javassist.NotFoundException;
 @CrossOrigin
 @RestController
 public class ProcedureController {
-	private static final String ROUTE = "procedure";
+	private static final String ROUTE = "Procedure";
 
 	@Autowired
 	private ProcedureRepository procedureRepository;

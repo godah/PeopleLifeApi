@@ -18,7 +18,7 @@ import javassist.NotFoundException;
 @CrossOrigin
 @RestController
 public class ProcedureTypeController {
-	private static final String ROUTE = "proceduretypes";
+	private static final String ROUTE = "ProcedureType";
 
 	@Autowired
 	private ProcedureTypeRepository procedureTypeRepository;
@@ -43,14 +43,8 @@ public class ProcedureTypeController {
 
 	@CrossOrigin
 	@PutMapping(path = "/" + ROUTE + "/{id}")
-	public @ResponseBody ProcedureType update(@PathVariable Integer id, @RequestBody ProcedureType procedureType) {
-		return procedureTypeRepository.findById(id).map(p -> {
-			p.setDescricao(procedureType.getDescricao());
-			return procedureTypeRepository.save(p);
-		}).orElseGet(() -> {
-			procedureType.setId(id);
-			return procedureTypeRepository.save(procedureType);
-		});
+	public @ResponseBody ProcedureType update(@PathVariable Integer id, @RequestBody ProcedureType procedureType) {	
+		return procedureTypeRepository.save(procedureType);
 	}
 
 	@CrossOrigin

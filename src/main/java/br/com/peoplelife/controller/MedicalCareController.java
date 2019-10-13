@@ -11,51 +11,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.peoplelife.model.UserType;
-import br.com.peoplelife.repository.UserTypeRepository;
+import br.com.peoplelife.model.MedicalCare;
+import br.com.peoplelife.repository.MedicalCareRepository;
 import javassist.NotFoundException;
 
 @CrossOrigin
 @RestController
-public class UserTypeController {
+public class MedicalCareController {
 	private static final String ROUTE = "usertype";
 
 	@Autowired
-	private UserTypeRepository userTypeRepository;
+	private MedicalCareRepository medicalCareRepository;
 
 	@CrossOrigin
 	@GetMapping(path = "/" + ROUTE)
-	public @ResponseBody Iterable<UserType> list() {
-		return userTypeRepository.findAll();
+	public @ResponseBody Iterable<MedicalCare> list() {
+		return medicalCareRepository.findAll();
 	}
 
 	@CrossOrigin
 	@GetMapping(path = "/" + ROUTE + "/{id}")
-	public @ResponseBody UserType find(@PathVariable Integer id) throws NotFoundException {
-		return userTypeRepository.findById(id).orElseThrow(() -> new NotFoundException("NotFound"));
+	public @ResponseBody MedicalCare find(@PathVariable Integer id) throws NotFoundException {
+		return medicalCareRepository.findById(id).orElseThrow(() -> new NotFoundException("NotFound"));
 	}
 
 	@CrossOrigin
 	@PostMapping(path = "/" + ROUTE)
-	public @ResponseBody UserType add(@RequestBody UserType userType) {
-		return userTypeRepository.save(userType);
+	public @ResponseBody MedicalCare add(@RequestBody MedicalCare medicalCare) {
+		return medicalCareRepository.save(medicalCare);
 	}
 
 	@CrossOrigin
 	@PutMapping(path = "/" + ROUTE + "/{id}")
-	public @ResponseBody UserType update(@PathVariable Integer id, @RequestBody UserType userType) {
-		return userTypeRepository.findById(id).map(ut -> {
-			ut.setDescricao(userType.getDescricao());
-			return userTypeRepository.save(ut);
-		}).orElseGet(() -> {
-			userType.setId(id);
-			return userTypeRepository.save(userType);
-		});
+	public @ResponseBody MedicalCare update(@PathVariable Integer id, @RequestBody MedicalCare medicalCare) {
+		return medicalCareRepository.save(medicalCare);
 	}
 
 	@CrossOrigin
 	@DeleteMapping(path = "/" + ROUTE + "/{id}")
 	public @ResponseBody void remove(@PathVariable Integer id) {
-		userTypeRepository.deleteById(id);
+		medicalCareRepository.deleteById(id);
 	}
 }
