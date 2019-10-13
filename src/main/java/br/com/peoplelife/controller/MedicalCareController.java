@@ -18,7 +18,7 @@ import javassist.NotFoundException;
 @CrossOrigin
 @RestController
 public class MedicalCareController {
-	private static final String ROUTE = "usertype";
+	private static final String ROUTE = "MedicalCare";
 
 	@Autowired
 	private MedicalCareRepository medicalCareRepository;

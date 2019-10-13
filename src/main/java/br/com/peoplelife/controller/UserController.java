@@ -27,7 +27,7 @@ import javassist.NotFoundException;
 public class UserController {
 	private final Log log = LogFactory.getLog(UserController.class);
 	private static final String MD5 = "MD5";
-	private static final String ROUTE = "user";
+	private static final String ROUTE = "User";
 
 	@Autowired
 	private UserRepository userRepository;
