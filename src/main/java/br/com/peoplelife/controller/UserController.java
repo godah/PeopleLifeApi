@@ -1,8 +1,5 @@
 package br.com.peoplelife.controller;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -26,7 +23,6 @@ import javassist.NotFoundException;
 @RestController
 public class UserController {
 	private final Log log = LogFactory.getLog(UserController.class);
-	private static final String MD5 = "MD5";
 	private static final String ROUTE = "User";
 
 	@Autowired
@@ -47,31 +43,13 @@ public class UserController {
 	@CrossOrigin
 	@PostMapping(path = "/" + ROUTE)
 	public @ResponseBody User add(@RequestBody User user) {
-		MessageDigest md;
-		try {
-			md = MessageDigest.getInstance(MD5);
-			BigInteger hash = new BigInteger(1, md.digest(user.getPassword().getBytes()));
-			user.setPassword(String.format("%32x", hash));
-			return userRepository.save(user);
-		} catch (NoSuchAlgorithmException e) {
-			log.error(e.getMessage(), e);
-			return null;
-		}
+		return userRepository.save(user);
 	}
 
 	@CrossOrigin
 	@PutMapping(path = "/" + ROUTE + "/{id}")
 	public @ResponseBody User update(@PathVariable Integer id, @RequestBody User user) {
-		MessageDigest md;
-		try {
-			md = MessageDigest.getInstance(MD5);
-			BigInteger hash = new BigInteger(1, md.digest(user.getPassword().getBytes()));
-			user.setPassword(String.format("%32x", hash));
-			return userRepository.save(user);
-		} catch (NoSuchAlgorithmException e) {
-			log.error(e.getMessage(), e);
-		}
-		return user;
+		return userRepository.save(user);
 	}
 
 	@CrossOrigin
@@ -79,24 +57,14 @@ public class UserController {
 	public @ResponseBody void remove(@PathVariable Integer id) {
 		userRepository.deleteById(id);
 	}
-	
+
 	@CrossOrigin
 	@PostMapping(path = "/" + ROUTE + "/login")
 	public @ResponseBody User login(@RequestBody User user) {
-		MessageDigest md;
-		try {
-			md = MessageDigest.getInstance(MD5);
-			BigInteger hash = new BigInteger(1, md.digest(user.getPassword().getBytes()));
-			user.setPassword(String.format("%32x", hash));
-			List<User> users = (List<User>) userRepository.findAll();
-			User response = users.stream()
-					.filter(p -> p.getName().equals(user.getName()) && p.getPassword().equals(user.getPassword()))
-					.findFirst()
-					.orElse(null);
-			return response;
-		} catch (NoSuchAlgorithmException e) {
-			log.error(e.getMessage(), e);
-			return null;
-		}
+		List<User> users = (List<User>) userRepository.findAll();
+		User response = users.stream()
+				.filter(p -> p.getName().equals(user.getName()) && p.getPassword().equals(user.getPassword()))
+				.findFirst().orElse(null);
+		return response;
 	}
 }
