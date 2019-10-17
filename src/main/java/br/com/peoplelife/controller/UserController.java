@@ -63,7 +63,7 @@ public class UserController {
 	public @ResponseBody User login(@RequestBody User user) {
 		List<User> users = (List<User>) userRepository.findAll();
 		User response = users.stream()
-				.filter(p -> p.getName().equals(user.getName()) && p.getPassword().equals(user.getPassword()))
+				.filter(p -> p.getEmail().equals(user.getEmail()) && p.getPassword().equals(user.getPassword()))
 				.findFirst().orElse(null);
 		return response;
 	}
